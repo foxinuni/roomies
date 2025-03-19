@@ -10,13 +10,17 @@ export default function Index() {
             <Text style={styles.logo}>Roomies</Text>
         </View>
         <View style={styles.controls}>
-            <TouchableOpacity style={styles.button}>
-                <Link href="/login" style={styles.button_text}>Login</Link>
-            </TouchableOpacity>
+            <Link href="/login" style={styles.button}>
+                <TouchableOpacity>
+                    <Text style={styles.button_text}>Login</Text>
+                </TouchableOpacity>
+            </Link>
 
-            <TouchableOpacity style={styles.button}>
-                <Link href="/register" style={styles.button_text}>Register</Link>
-            </TouchableOpacity>
+            <Link href="/register" style={styles.button}>
+                <TouchableOpacity>
+                    <Text style={styles.button_text}>Register</Text>
+                </TouchableOpacity>
+            </Link>
         </View>
         <StatusBar style="auto" />
     </SafeAreaView>

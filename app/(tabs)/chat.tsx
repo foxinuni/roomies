@@ -77,9 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     textAlign: "left",
   },
-  chat_list: {
-
-  },
+  chat_list: {},
   chat: {
     width: "100%",
     display: "flex",

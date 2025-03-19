@@ -1,51 +1,38 @@
 import { Link } from "expo-router";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import MapView from 'react-native-maps';
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Index() {
 	return (
 		<View style={styles.container}>
+			<MapView
+				style={styles.map}
+				initialRegion={{
+					latitude: 4.711,
+					longitude: -74.0721,
+					latitudeDelta: 0.01,
+					longitudeDelta: 0.01,
+				}}
+			/>
 			<View style={styles.form}>
-				<TextInput
-					style={{ 
-						height: 40, 
-						borderColor: 'gray', 
-						borderWidth: 1, 
-						width: '90%', 
-						marginBottom: 10, 
-						paddingHorizontal: 10 
-					}}
-					placeholder="Enter address"
-				/>
-
-				<View style={{ flexDirection: 'row', marginBottom: 10 }}>
-					<Text style={{ marginRight: 10 }}>Property Type:</Text>
-					
-					<TouchableOpacity style={{ marginHorizontal: 5 }}>
-						<Text>House</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={{ marginHorizontal: 5 }}>
-						<Text>Apartment</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={{ marginHorizontal: 5 }}>
-						<Text>Condo</Text>
-					</TouchableOpacity>
+				<View style={styles.search_container}>
+					<Ionicons name="home" size={24} color="black" style={styles.house_icon} />
+					<TextInput style={styles.search_bar} placeholder="Enter an address" placeholderTextColor="gray" />
 				</View>
-
-				<View style={{ flexDirection: 'row', marginBottom: 10 }}>
-					<Text style={{ marginRight: 10 }}>Purpose:</Text>
-					<TouchableOpacity style={{ marginHorizontal: 5 }}>
-						<Text>Rent</Text>
+				<View style={styles.search_row}>
+					<TouchableOpacity style={styles.filter}>
+						<Text style={styles.text}>Property Type: House</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={{ marginHorizontal: 5 }}>
-						<Text>Buy</Text>
+					<TouchableOpacity style={styles.filter}>
+						<Text style={styles.text}>Purpose: Rent</Text>
 					</TouchableOpacity>
+					<Link href="/search/display" style={styles.button}>
+						<TouchableOpacity style={{ justifyContent: "center", alignItems: "center" }}>
+							<Ionicons name="search" size={18} color="#f0f0f0" style={styles.search_icon} />
+						</TouchableOpacity>
+					</Link>
 				</View>
-
-				<Link href="/search/display" style={styles.button}>
-					<TouchableOpacity style={styles.button}>
-						<Text style={{ color: "#f0f0f0" }}>Search</Text>
-					</TouchableOpacity>
-				</Link>
 			</View>
 		</View>
 	);
@@ -57,27 +44,68 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  map: {
+	width: "100%",
+	height: "100%",
+  },
   form: {
 	width: "100%",
+	position: "absolute",
+	top: 40,
+	left: 0,
 	flex: 1,
     justifyContent: "center",
     alignItems: "center",
+	padding: 20,
   },
-  text: {
-    fontSize: 20,
-    color: "black",
-  },
-  button: {
-    backgroundColor: "#101010",
-    color: "#f0f0f0",
-    
-    display: "flex",
-    justifyContent: "center",
-    textAlign: "center",
-
+  search_container: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#eeeeee",
+	borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 5,
-    marginTop: 10,
+  },
+  house_icon: {
+    marginRight: 10,
+  },
+  search_icon: {
+	width: "100%",
+	height: "100%",
+  },
+  search_bar: {
+	flex: 1,
+	justifyContent: "flex-start",
+	textAlign: "left",
+	marginLeft: 10,
+  },
+  search_row: {
+	width: "100%",
+	flexDirection: "row",
+	alignItems: "center",
+	justifyContent: "space-between",
+	paddingVertical: 15,
+	borderBottomLeftRadius: 5,
+	borderBottomRightRadius: 5,
+  },
+  filter: {
+	backgroundColor: "#303030",
+	display: "flex",
+	flexDirection: "row",
+	color: "#f0f0f0",
+	borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+  },
+  button: {
+	height: "100%",
+	backgroundColor: "#101010",
+	borderRadius: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+  },
+  text: {
+	color: "#f0f0f0",
   }
 });

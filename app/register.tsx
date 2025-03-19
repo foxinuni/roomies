@@ -4,7 +4,7 @@ import { Text, View, StyleSheet } from "react-native";
 export default function Register() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home</Text>
+      <Text style={styles.text}>Register is in progress!</Text>
       <Link href="/login" style={styles.button}>Login</Link>
     </View>
   );

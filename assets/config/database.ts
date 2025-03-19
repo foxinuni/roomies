@@ -10,17 +10,20 @@ export interface Listing {
     name: string;
     tags: string[];
     rating: number;
+    price: number;
     image: unknown;
+    address: string;
     chat: Message[];
 }
-
 const listing: Listing[] = [
     {
         id: 1,
         name: "High Hills",
         tags: ["house", "rent", "flexible"],
         rating: 4.5,
+        price: 1500,
         image: require("@/assets/houses/casa.jpg"),
+        address: "1234 Mountain Road, Hilltown",
         chat: [
             {
                 id: 1,
@@ -47,7 +50,9 @@ const listing: Listing[] = [
         name: "Green Valley",
         tags: ["house", "rent", "family"],
         rating: 4.2,
+        price: 1200,
         image: require("@/assets/houses/casa2.jpg"),
+        address: "5678 Green Street, Valleyview",
         chat: [
             {
                 id: 1,
@@ -74,7 +79,9 @@ const listing: Listing[] = [
         name: "Sunny Side Up",
         tags: ["house", "rent", "student"],
         rating: 4.8,
+        price: 1000,
         image: require("@/assets/houses/casa3.avif"),
+        address: "9101 Sunshine Avenue, Sunnyside",
         chat: [
             {
                 id: 1,
@@ -101,7 +108,9 @@ const listing: Listing[] = [
         name: "Urban Oasis",
         tags: ["apartment", "rent", "pet-friendly"],
         rating: 4.1,
+        price: 800,
         image: require("@/assets/houses/apto.jpg"),
+        address: "4321 Oasis Lane, Urbantown",
         chat: [
             {
                 id: 1,
@@ -128,7 +137,9 @@ const listing: Listing[] = [
         name: "Crown Jewel",
         tags: ["apartment", "rent", "luxury"],
         rating: 4.9,
+        price: 2500,
         image: require("@/assets/houses/apto2.png"),
+        address: "8765 Crown Street, Jewel City",
         chat: [
             {
                 id: 1,
