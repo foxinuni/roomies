@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
@@ -10,8 +10,13 @@ export default function Index() {
             <Text style={styles.logo}>Roomies</Text>
         </View>
         <View style={styles.controls}>
-            <Link href="/login" style={styles.button}>Login</Link>
-            <Link href="/register" style={styles.button}>Register</Link>
+            <TouchableOpacity style={styles.button}>
+                <Link href="/login" style={styles.button_text}>Login</Link>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Link href="/register" style={styles.button_text}>Register</Link>
+            </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
     </SafeAreaView>
@@ -44,13 +49,19 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: "#101010",
-        color: "#f0f0f0",
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 5,
         marginTop: 10,
-        textAlign: "center",
         width: "75%",
         minWidth: 200,
+
+        display: "flex",
+        justifyContent: "center",
+        textAlign: "center",
+    },
+    button_text: {
+        color: "#f0f0f0",
+        textAlign: "center",
     }
 });

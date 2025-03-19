@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,7 +14,7 @@ export default function Login() {
                 <Text style={styles.forgot}>Forgot Password?</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
-                <Text style={{ color: "#f0f0f0" }}>Login</Text>
+                <Link href="/(tabs)/search" style={{ color: "#f0f0f0" }}>Login</Link>
             </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
