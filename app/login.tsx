@@ -9,7 +9,12 @@ export default function Login() {
         <View style={styles.form}>
             <Text style={styles.logo}>Login</Text>
             <TextInput style={styles.input} placeholder="Email" placeholderTextColor={"#f0f0f0"} />
-            <TextInput style={styles.input} placeholder="Password" placeholderTextColor={"#f0f0f0"} />
+            <TextInput 
+                style={styles.input} 
+                placeholder="Password" 
+                placeholderTextColor={"#f0f0f0"} 
+                secureTextEntry={true} 
+            />
             <TouchableOpacity>
                 <Text style={styles.forgot}>Forgot Password?</Text>
             </TouchableOpacity>
