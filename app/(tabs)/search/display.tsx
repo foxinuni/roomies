@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Image } from "expo-image";
