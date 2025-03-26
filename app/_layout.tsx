@@ -1,21 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { router, Stack } from "expo-router";
 import { SessionContext, SessionProvider } from "@/lib/context/session-context";
-import { UserContext, UserProvider } from "@/lib/context/user-context";
 
 export default function RootLayout() {
     return (
         <SessionProvider>
-            <UserProvider>
-                <AuthStack />
-            </UserProvider>
+            <AuthStack />
         </SessionProvider>
     );
 }
 
 function AuthStack() {
-    const { authenticated } = useContext(SessionContext);
-    const { cachedUser } = useContext(UserContext);
+    const { authenticated, user } = useContext(SessionContext);
 
     useEffect(() => {
         // Dismiss all routes (prevents user from going back)
@@ -25,7 +21,7 @@ function AuthStack() {
 
         // If the user is authenticated, make sure it's initialized
         if (authenticated()) {
-            if (cachedUser) {
+            if (user) {
                 router.replace("/(tabs)/search");
             } else {
                 router.replace("./account");
@@ -33,7 +29,7 @@ function AuthStack() {
         } else {
             router.replace("/");
         }
-    }, [authenticated, cachedUser, router]);
+    }, [authenticated, user, router]);
 
     return (
         <Stack

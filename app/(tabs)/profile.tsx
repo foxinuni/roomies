@@ -5,7 +5,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { SessionContext } from "@/lib/context/session-context";
 
 export default function Profile() {
-    const { logout } = useContext(SessionContext);
+    const { user, logout } = useContext(SessionContext);
 
     function handleLogout() {
         Alert.alert(
@@ -18,9 +18,9 @@ export default function Profile() {
         );
     }
 
-    const user = {
-        name: "Luis Felipe Gutiérrez",
-        username: "luisgutierrez",
+    const profile_user = {
+        name: `${user?.name} ${user?.surname}`,
+        username: user?.username,
         rating: 4.9,
         picture: require("@/assets/images/profile2.jpg"),
     }
@@ -30,15 +30,15 @@ export default function Profile() {
             <Text style={styles.title}>Profile</Text>
             <View style={styles.profile}>
                 <View style={styles.profile_picture_container}>
-                    <Image source={user.picture} style={styles.profile_picture} />
+                    <Image source={profile_user.picture} style={styles.profile_picture} />
                     <Ionicons name="pencil" size={24} color="black" style={styles.edit_icon} />
                 </View>
                 <View style={styles.profile_info}>
-                    <Text style={styles.profile_name}>{user.name}</Text>
-                    <Text style={styles.profile_username}>@{user.username}</Text>
+                    <Text style={styles.profile_name}>{profile_user.name}</Text>
+                    <Text style={styles.profile_username}>@{profile_user.username}</Text>
                     <View style={styles.profile_rating}>
                         <Ionicons name="star" size={16} color="gold" />
-                        <Text style={{ marginLeft: 5 }}>{user.rating}</Text>
+                        <Text style={{ marginLeft: 5 }}>{profile_user.rating}</Text>
                     </View>
                 </View>
             </View>

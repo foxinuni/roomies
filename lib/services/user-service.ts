@@ -21,3 +21,22 @@ export async function getSelf(): Promise<User | null> {
     return data as User;
 }
 
+export async function upsertSelf(user: User): Promise<User> {
+    const session = await getSession();
+    if (!session) {
+        throw new Error('User not authenticated');
+    }
+
+    user.id = session.user.id;
+
+    const { data, error } = await supabase
+        .from('users')
+        .upsert(user, { onConflict: 'id' })
+        .single();
+
+    if (error) {
+        throw error;
+    }
+
+    return data as User;
+}

@@ -1,76 +1,61 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { useContext, useEffect } from "react";
-import { Image } from "expo-image";
 import { Text, View, StyleSheet, TextInput, Pressable, TouchableOpacity } from "react-native";
+import { DocumentType } from "@/lib/entities/user";
+import DropDownPicker from "react-native-dropdown-picker";
 import { router } from "expo-router";
 import { UserFormContext } from "./_layout";
 
-export default function Information() {
+export default function Document() {
     const { user, setUser } = useContext(UserFormContext);
 
-    const [username, setUsername] = React.useState("");
-    const [name, setName] = React.useState("");
-    const [surname, setSurname] = React.useState("");
-    const [birthday, setBirthdate] = React.useState("");
+    const [document, setDocument] = React.useState("");
+    const [open, setOpen] = React.useState(false);
+    const [values, setValues] = React.useState("");
+    const [items, setItems] = React.useState([
+        { label: "Cedula Ciudadana", value: DocumentType.CC },
+        { label: "Documento de Identidad", value: DocumentType.DI},
+        { label: "Pasaporte", value: DocumentType.PASS },
+    ]);
+
 
     useEffect(() => {
-        setUsername(user.username ?? "");
-        setName(user.name ?? "");
-        setSurname(user.surname ?? "");
-        setBirthdate(user.birthday?.toISOString().split("T")[0] ?? "");
+        setDocument(user.document_value ?? "");
+        setValues(user.document_type ?? DocumentType.CC);
     }, [user]);
 
     function handleNext() {
         setUser({
             ...user,
-            username,
-            name,
-            surname,
-            birthday: new Date(birthday),
+            document_value: document,
+            document_type: values as DocumentType,
         });
 
-        router.push("/account/document");
+        router.push("/account/finish");
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>About You</Text>
+            <Text style={styles.title}>Identification</Text>
             <View style={styles.profile}>
-                <View style={styles.profile_picture_container}>
-                    <Image source={require("@/assets/images/default-avatar.jpg")} style={styles.profile_picture} />
-                    <Ionicons name="pencil" size={24} color="black" style={styles.edit_icon} />
-                </View>
-
-                <TextInput
-                    style={styles.input}
-                    placeholder="Username"
-                    placeholderTextColor={"#f0f0f0"}
-                    value={username}
-                    onChangeText={setUsername}
+                <DropDownPicker
+                    open={open}
+                    value={values}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValues}
+                    setItems={setItems}
+                    placeholder="Select a document type"
+                    style={styles.dropdown}
+                    textStyle={{ color: "#f0f0f0" }}
+                    dropDownContainerStyle={{ backgroundColor: "#404040" }}
                 />
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Name"
+                    placeholder="Documento"
                     placeholderTextColor={"#f0f0f0"}
-                    value={name}
-                    onChangeText={setName}
-                />
-
-                <TextInput
-                    style={styles.input}
-                    placeholder="Surname"
-                    placeholderTextColor={"#f0f0f0"}
-                    value={surname}
-                    onChangeText={setSurname}
-                />
-
-                <TextInput
-                    style={styles.input}
-                    placeholder="Birthdate (YYYY-MM-DD)"
-                    placeholderTextColor={"#f0f0f0"}
-                    value={birthday}
-                    onChangeText={setBirthdate}
+                    value={document}
+                    onChangeText={setDocument}
                 />
 
                 <Pressable onPress={handleNext}>
@@ -87,10 +72,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
+        alignItems: "center",
         paddingHorizontal: 20,
         paddingVertical: 40,
     },
     title: {
+        width: "100%",
+        textAlign: "left",
         fontSize: 35,
         color: "black",
         fontWeight: "bold",
@@ -100,6 +88,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         marginTop: 15,
+        width: "90%",
     },
     profile_picture_container: {
         width: 150,
@@ -131,7 +120,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 5,
         marginBottom: 10,
-        width: "90%",
+        width: "100%",
+    },
+    dropdown: {
+        backgroundColor: "#404040",
+        color: "#f0f0f0",
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        borderRadius: 5,
+        marginBottom: 10,
+        width: "100%",
     },
     button: {
         backgroundColor: "#101010",

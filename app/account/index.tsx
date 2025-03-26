@@ -1,28 +1,17 @@
-import React, { useContext } from "react";
-import { UserContext } from "@/lib/context/user-context";
-import { User } from "@/lib/entities/user";
+import React from "react";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, StyleSheet, Button, Pressable, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
+
 
 export default function Information() {
-    const { user, update } = useContext(UserContext);
-
-    const handleNext = () => {
-        if (!user) {
-            update({} as User);
-        }
-
-        router.push("/account/information");
-    };
-
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Welcome to Roomies!</Text>
             <Text style={styles.subtitle}>
                 We need a bit more information to get started. Press the "Next" button to fill it out.
             </Text>
-            <Pressable onPress={handleNext}>
+            <Pressable onPress={() => router.push("/account/information")}>
                     <TouchableOpacity style={styles.button}>
                         <Text style={{ color: "#f0f0f0" }}>Next</Text>
                     </TouchableOpacity>
