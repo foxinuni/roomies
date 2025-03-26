@@ -1,33 +1,131 @@
-import React from "react";
-import { Link } from "expo-router";
-import { Text, View, StyleSheet } from "react-native";
+import React, { useContext, useState } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { SessionContext } from "@/lib/context/session-context";
 
 export default function Register() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Register is in progress!</Text>
-      <Link href="/login" style={styles.button}>Login</Link>
-    </View>
-  );
+    const { register } = useContext(SessionContext);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    async function handleSubmit() {
+        setLoading(true);
+
+        try {
+            if (password !== repeatPassword) {
+                throw new Error("Passwords do not match");
+            }
+
+            await register(email, password);
+        } catch (error: any) {
+            Alert.alert("Error", error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <View style={styles.form}>
+                <Text style={styles.logo}>Register</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    placeholderTextColor={"#f0f0f0"}
+                    value={email}
+                    onChangeText={setEmail}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    placeholderTextColor={"#f0f0f0"}
+                    secureTextEntry={true}
+                    value={password}
+                    onChangeText={setPassword}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Repeat Password"
+                    placeholderTextColor={"#f0f0f0"}
+                    secureTextEntry={true}
+                    value={repeatPassword}
+                    onChangeText={setRepeatPassword}
+                />
+
+                <Pressable onPress={handleSubmit} disabled={loading}>
+                    <TouchableOpacity style={styles.button}>
+                        {loading ? (
+                            <Ionicons name="refresh" size={18} color="#f0f0f0" />
+                        ) : (
+                            <Text style={{ color: "#f0f0f0" }}>Sign Up</Text>
+                        )}
+                    </TouchableOpacity>
+                </Pressable>
+            </View>
+            <StatusBar style="auto" />
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 20,
-    color: "black",
-  },
-  button: {
-    backgroundColor: "#101010",
-    color: "#f0f0f0",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    textAlign: "center",
-  }
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#f0f0f0",
+    },
+    header: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    logo: {
+        fontSize: 40,
+        fontWeight: "800",
+        marginBottom: 40,
+    },
+    form: {
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+
+        width: "100%",
+        paddingHorizontal: 20,
+    },
+    input: {
+        backgroundColor: "#404040",
+        color: "#f0f0f0",
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        borderRadius: 5,
+        marginBottom: 10,
+        width: "90%",
+    },
+    forgot: {
+        color: "#505050",
+        fontSize: 15,
+        marginBottom: 10,
+    },
+    button: {
+        backgroundColor: "#101010",
+        color: "#f0f0f0",
+
+        display: "flex",
+        justifyContent: "center",
+        textAlign: "center",
+
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 5,
+        marginTop: 10,
+    }
 });

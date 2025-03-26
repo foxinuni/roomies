@@ -10,8 +10,8 @@ CREATE TABLE public.users (
     name VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
     birthday DATE,
-    type document_type NOT NULL,
-    value TEXT NOT NULL,
+    document_type document_type NOT NULL,
+    document_value TEXT NOT NULL,
     role user_roles NOT NULL DEFAULT 'client',
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()

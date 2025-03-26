@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#E9ED69",
+        backgroundColor: "#f0f0f0",
     },
     header: {
         flex: 1,

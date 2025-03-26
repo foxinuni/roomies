@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import MapView from 'react-native-maps';
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { StatusBar } from "expo-status-bar";
 
 export default function Index() {
 	return (
@@ -35,6 +36,7 @@ export default function Index() {
 					</Link>
 				</View>
 			</View>
+            <StatusBar style="auto" />
 		</View>
 	);
 }

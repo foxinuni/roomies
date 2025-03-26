@@ -3,19 +3,17 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { signIn } from "@/lib/services/auth-service";
 import { SessionContext } from "@/lib/context/session-context";
 
 export default function Login() {
     const { login } = useContext(SessionContext);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     async function handleSubmit() {
         setLoading(true);
-
-        console.log("Attempting to sign in with email:", email);
 
         try {
             await login(email, password);
@@ -54,7 +52,7 @@ export default function Login() {
                         {loading ? (
                             <Ionicons name="refresh" size={18} color="#f0f0f0" />
                         ) : (
-                            <Text style={{ color: "#f0f0f0" }}>Login</Text>
+                            <Text style={{ color: "#f0f0f0" }}>Sign In</Text>
                         )}
                     </TouchableOpacity>
                 </Pressable>
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#E9ED69",
+        backgroundColor: "#f0f0f0",
     },
     header: {
         flex: 1,

@@ -12,8 +12,8 @@ export default function Profile() {
             "Logout Confirmation",
             "Are you sure you want to logout?",
             [
-            { text: "Cancel", style: "cancel" },
-            { text: "Logout", onPress: () => logout() }
+                { text: "Cancel", style: "cancel" },
+                { text: "Logout", onPress: () => logout() }
             ]
         );
     }
